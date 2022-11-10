@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:xml/xml.dart';
 
+import '../adapter/adapter_datetime.dart';
 import '../models/enum/data_type.dart';
 import '../models/request/weather.dart';
 import '../models/response/super_fct/super_fct.dart';
@@ -9,6 +10,7 @@ import '../models/response/super_fct/super_fct.dart';
 /// 초단기예보
 class DioSuperFct {
   late Dio _dio;
+  final _date = DateTimeAdapter();
 
   DioSuperFct() {
     _dio = Dio(
@@ -19,9 +21,12 @@ class DioSuperFct {
   /// 초단기예보정보 (JSON) SuperFctItem
   Future<SuperFctItem?> getJSON(Weather weather) async {
     try {
+      final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getUltraSrtFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> SuperFctItem 변환
@@ -29,15 +34,19 @@ class DioSuperFct {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 초단기예보정보 (JSON) Item
   Future<Item?> getItemJSON(Weather weather, int index) async {
     try {
+      final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getUltraSrtFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> SuperFctItem 변환
@@ -52,15 +61,19 @@ class DioSuperFct {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 초단기예보정보 (JSON) Item List
   Future<List<Item>?> getItemListJSON(Weather weather) async {
     try {
+      final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getUltraSrtFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> superFctItem 변환
@@ -74,15 +87,19 @@ class DioSuperFct {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 초단기예보정보 (XML) Item
   Future<Item?> getItemXML(Weather weather, int index) async {
     try {
+      final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getUltraSrtFcst',
-        queryParameters: weather.copyWith(dataType: DataType.xml).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.xml, dateTime: nowDate)
+            .toJson(),
       );
 
       final document = XmlDocument.parse(response.data);
@@ -95,15 +112,19 @@ class DioSuperFct {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 초단기예보정보 (XML) Item List
   Future<List<Item>?> getItemListXML(Weather weather) async {
     try {
+      final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getUltraSrtFcst',
-        queryParameters: weather.copyWith(dataType: DataType.xml).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.xml, dateTime: nowDate)
+            .toJson(),
       );
 
       final document = XmlDocument.parse(response.data);
@@ -117,6 +138,7 @@ class DioSuperFct {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 }

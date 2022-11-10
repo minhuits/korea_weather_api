@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:xml/xml.dart';
 
+import '../adapter/adapter_datetime.dart';
 import '../models/enum/data_type.dart';
 import '../models/request/weather.dart';
 import '../models/response/fct_version/fct_version.dart';
@@ -9,6 +10,7 @@ import '../models/response/fct_version/fct_version.dart';
 /// 예보버전
 class DioFctVersion {
   late Dio _dio;
+  final _date = DateTimeAdapter();
 
   DioFctVersion() {
     _dio = Dio(
@@ -19,9 +21,12 @@ class DioFctVersion {
   /// 예보버전조회 (JSON) FctVersionItem
   Future<FctVersionItem?> getFctVersionItemJSON(Weather weather) async {
     try {
+      final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getVilageFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> FctVersionItem 변환
@@ -29,15 +34,19 @@ class DioFctVersion {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 예보버전조회 (JSON) Item
   Future<Item?> getItemJSON(Weather weather, int index) async {
     try {
+      final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getVilageFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> FctVersionItem 변환
@@ -51,15 +60,19 @@ class DioFctVersion {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 예보버전조회 (JSON) Item List
   Future<List<Item>?> getItemListJSON(Weather weather) async {
     try {
+      final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getVilageFcst',
-        queryParameters: weather.copyWith(dataType: DataType.json).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.json, dateTime: nowDate)
+            .toJson(),
       );
 
       // json -> FctVersionItem 변환
@@ -73,15 +86,19 @@ class DioFctVersion {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 예보버전조회 (XML) Item
   Future<Item?> getItemXML(Weather weather, int index) async {
     try {
+      final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getVilageFcst',
-        queryParameters: weather.copyWith(dataType: DataType.xml).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.xml, dateTime: nowDate)
+            .toJson(),
       );
 
       final document = XmlDocument.parse(response.data);
@@ -95,15 +112,19 @@ class DioFctVersion {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 
   /// 예보버전조회 (XML) Item List
   Future<List<Item>?> getItemListXML(Weather weather) async {
     try {
+      final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(
         '/VilageFcstInfoService_2.0/getVilageFcst',
-        queryParameters: weather.copyWith(dataType: DataType.xml).toJson(),
+        queryParameters: weather
+            .copyWith(dataType: DataType.xml, dateTime: nowDate)
+            .toJson(),
       );
 
       final document = XmlDocument.parse(response.data);
@@ -117,6 +138,7 @@ class DioFctVersion {
     } catch (error, stacktrace) {
       debugPrint("Exception occured: $error stackTrace: $stacktrace");
     }
+
     return Future.value();
   }
 }
