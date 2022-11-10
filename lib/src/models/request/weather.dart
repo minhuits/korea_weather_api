@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:korea_weather_api/src/adapter/adapter_map.dart';
 
 import '../enum/data_type.dart';
 
@@ -72,6 +73,8 @@ class Weather {
       ny: ny ?? this.ny,
     );
   }
+
+  MapAdapter mapAdapter(double x, double y) => MapAdapter.changeMap(x, y);
 
   factory Weather.fromJson(MapJson json) => _$WeatherFromJson(json);
 
