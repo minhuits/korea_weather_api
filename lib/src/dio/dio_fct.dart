@@ -19,7 +19,7 @@ class DioFct {
   }
 
   /// 단기예보정보 (JSON) FctItem
-  Future<FctItem?> getFctItemJSON(Weather weather) async {
+  Future<FctItem?> getJSON(Weather weather) async {
     try {
       final nowDate = _date.getFucDate(_date.nowDateTime());
       final response = await _dio.get(

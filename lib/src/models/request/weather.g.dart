@@ -7,13 +7,13 @@ part of 'weather.dart';
 // **************************************************************************
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
+      nx: (json['nx'] as num?)?.toDouble(),
+      ny: (json['ny'] as num?)?.toDouble(),
       serviceKey: json['ServiceKey'] as String,
       pageNo: json['pageNo'] as int? ?? 1,
       numOfRows: json['numOfRows'] as int? ?? 1000,
       dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['dataType']) ??
           DataType.json,
-      nx: json['nx'] as int? ?? 60,
-      ny: json['ny'] as int? ?? 127,
     )
       ..baseDate = json['base_date'] as String?
       ..baseTime = json['base_time'] as String?;

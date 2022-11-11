@@ -19,7 +19,7 @@ class DioFctVersion {
   }
 
   /// 예보버전조회 (JSON) FctVersionItem
-  Future<FctVersionItem?> getFctVersionItemJSON(Weather weather) async {
+  Future<FctVersionItem?> getJSON(Weather weather) async {
     try {
       final nowDate = _date.nowDateTime(hour: DateTime.now().hour - 1);
       final response = await _dio.get(

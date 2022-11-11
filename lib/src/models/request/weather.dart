@@ -32,20 +32,26 @@ class Weather {
   String? baseTime;
 
   /// 예보지점 X 좌표 [Default: 60]
-  final int ny;
+  late int ny;
 
   /// 예보지점 Y 좌표 [Default: 127]
-  final int nx;
+  late int nx;
 
   Weather({
     DateTime? dateTime,
+    double? nx,
+    double? ny,
     required this.serviceKey,
     this.pageNo = 1,
     this.numOfRows = 1000,
     this.dataType = DataType.json,
-    this.nx = 60,
-    this.ny = 127,
   }) {
+    final changeMap = mapAdapter(
+      nx ?? 126.98000833333333,
+      ny ?? 37.56356944444444,
+    );
+    this.nx = changeMap.x;
+    this.ny = changeMap.y;
     baseDate = _dateBase(dateTime ?? DateTime.now());
     baseTime = _timeBase(dateTime ?? DateTime.now());
   }
@@ -54,29 +60,31 @@ class Weather {
 
   String _timeBase(DateTime dateTime) => DateFormat('kkmm').format(dateTime);
 
+  MapAdapter mapAdapter(double x, double y) => MapAdapter.changeMap(x, y);
+
+  factory Weather.fromJson(MapJson json) => _$WeatherFromJson(json);
+
+  MapJson toJson() => _$WeatherToJson(this);
+
   Weather copyWith({
     DateTime? dateTime,
     String? serviceKey,
     int? pageNo,
     int? numOfRows,
     DataType? dataType,
-    int? nx,
-    int? ny,
+    String? baseDate,
+    String? baseTime,
+    double? nx,
+    double? ny,
   }) {
     return Weather(
-      dateTime: dateTime,
       serviceKey: serviceKey ?? this.serviceKey,
       pageNo: pageNo ?? this.pageNo,
       numOfRows: numOfRows ?? this.numOfRows,
       dataType: dataType ?? this.dataType,
-      nx: nx ?? this.nx,
-      ny: ny ?? this.ny,
+      dateTime: dateTime,
+      nx: nx ?? this.nx.toDouble(),
+      ny: ny ?? this.ny.toDouble(),
     );
   }
-
-  MapAdapter mapAdapter(double x, double y) => MapAdapter.changeMap(x, y);
-
-  factory Weather.fromJson(MapJson json) => _$WeatherFromJson(json);
-
-  MapJson toJson() => _$WeatherToJson(this);
 }

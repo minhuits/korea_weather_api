@@ -19,7 +19,7 @@ class DioSuperNct {
   }
 
   /// 초단기실황조회 (JSON) SuperNctItem
-  Future<SuperNctItem?> getSuperNctItemJSON(Weather weather) async {
+  Future<SuperNctItem?> getJSON(Weather weather) async {
     try {
       final nowDate = _date.getSuperFctDate(_date.nowDateTime());
       final response = await _dio.get(
