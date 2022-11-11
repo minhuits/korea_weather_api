@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../models/request/weather.dart';
+import '../../../models/request/weather.dart';
 
 part 'adapter_xml.freezed.dart';
 
