@@ -1,34 +1,42 @@
-import '../dio/dio_fct.dart';
-import '../dio/dio_fct_version.dart';
-import '../dio/dio_super_fct.dart';
-import '../dio/dio_super_nct.dart';
-import 'freezed/adapter_json.dart';
-import 'freezed/adapter_xml.dart';
+import 'adapter_json/dio/dio_fct.dart';
+import 'adapter_json/dio/dio_fct_version.dart';
+import 'adapter_json/dio/dio_super_fct.dart';
+import 'adapter_json/dio/dio_super_nct.dart';
+import 'adapter_json/freezed/adapter_json.dart';
+import 'adapter_xml/dio/dio_fct.dart';
+import 'adapter_xml/dio/dio_fct_version.dart';
+import 'adapter_xml/dio/dio_super_fct.dart';
+import 'adapter_xml/dio/dio_super_nct.dart';
+import 'adapter_xml/freezed/adapter_xml.dart';
 
 class AdapterWeather {
   /// 예보버전
-  final DioFctVersion _dioFctVersion = DioFctVersion();
+  final _dioFctVersionJson = DioFctVersionJson();
+  final _dioFctVersionXML = DioFctVersionXML();
 
   /// 초단기실황조회
-  final DioSuperNct _dioSuperNct = DioSuperNct();
+  final _dioSuperNctJson = DioSuperNctJson();
+  final _dioSuperNctXML = DioSuperNctXML();
 
   /// 초단기예보
-  final DioSuperFct _dioSuperFct = DioSuperFct();
+  final _dioSuperFctJson = DioSuperFctJson();
+  final _dioSuperFctXML = DioSuperFctXML();
 
   /// 단기예보
-  final DioFct _dioFct = DioFct();
+  final _dioFctJson = DioFctJson();
+  final _dioFctXML = DioFctXML();
 
   /// 예보버전
   void getJsonFctVersion({required AdapterItemJson adapterItem}) {
     adapterItem.when(
       getFromJson: (weather) async {
-        return await _dioFctVersion.getJSON(weather);
+        return await _dioFctVersionJson.getJSON(weather);
       },
       getItem: (weather, index) async {
-        return await _dioFctVersion.getItemJSON(weather, index);
+        return await _dioFctVersionJson.getItemJSON(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioFctVersion.getItemListJSON(weather);
+        return await _dioFctVersionJson.getItemListJSON(weather);
       },
     );
   }
@@ -36,10 +44,10 @@ class AdapterWeather {
   void getXMLVersion({required AdapterItemXML adapterItem}) {
     adapterItem.when(
       getItem: (weather, index) async {
-        return await _dioFctVersion.getItemXML(weather, index);
+        return await _dioFctVersionXML.getItemXML(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioFctVersion.getItemListXML(weather);
+        return await _dioFctVersionXML.getItemListXML(weather);
       },
     );
   }
@@ -48,13 +56,13 @@ class AdapterWeather {
   void getJsonSuperNct({required AdapterItemJson adapterItem}) {
     adapterItem.when(
       getFromJson: (weather) async {
-        return await _dioSuperNct.getJSON(weather);
+        return await _dioSuperNctJson.getJSON(weather);
       },
       getItem: (weather, index) async {
-        return await _dioSuperNct.getItemJSON(weather, index);
+        return await _dioSuperNctJson.getItemJSON(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioSuperNct.getItemListJSON(weather);
+        return await _dioSuperNctJson.getItemListJSON(weather);
       },
     );
   }
@@ -62,10 +70,10 @@ class AdapterWeather {
   void getXMLSuperNct({required AdapterItemXML adapterItem}) {
     adapterItem.when(
       getItem: (weather, index) async {
-        return await _dioSuperNct.getItemXML(weather, index);
+        return await _dioSuperNctXML.getItemXML(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioSuperNct.getItemListXML(weather);
+        return await _dioSuperNctXML.getItemListXML(weather);
       },
     );
   }
@@ -74,13 +82,13 @@ class AdapterWeather {
   void getJsonSuperFct({required AdapterItemJson adapterItem}) {
     adapterItem.when(
       getFromJson: (weather) async {
-        return await _dioSuperFct.getJSON(weather);
+        return await _dioSuperFctJson.getJSON(weather);
       },
       getItem: (weather, index) async {
-        return await _dioSuperFct.getItemJSON(weather, index);
+        return await _dioSuperFctJson.getItemJSON(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioSuperFct.getItemListJSON(weather);
+        return await _dioSuperFctJson.getItemListJSON(weather);
       },
     );
   }
@@ -88,10 +96,10 @@ class AdapterWeather {
   void getXMLSuperFct({required AdapterItemXML adapterItem}) {
     adapterItem.when(
       getItem: (weather, index) async {
-        return await _dioSuperFct.getItemXML(weather, index);
+        return await _dioSuperFctXML.getItemXML(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioSuperFct.getItemListXML(weather);
+        return await _dioSuperFctXML.getItemListXML(weather);
       },
     );
   }
@@ -100,15 +108,13 @@ class AdapterWeather {
   void getJsonFct({required AdapterItemJson adapterItem}) {
     adapterItem.when(
       getFromJson: (weather) async {
-        print(_dioFct.getJSON(weather).toString());
-
-        return await _dioFct.getJSON(weather);
+        return await _dioFctJson.getJSON(weather);
       },
       getItem: (weather, index) async {
-        return await _dioFct.getItemJSON(weather, index);
+        return await _dioFctJson.getItemJSON(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioFct.getItemListJSON(weather);
+        return await _dioFctJson.getItemListJSON(weather);
       },
     );
   }
@@ -116,10 +122,10 @@ class AdapterWeather {
   void getXMLFct({required AdapterItemXML adapterItem}) {
     adapterItem.when(
       getItem: (weather, index) async {
-        return await _dioFct.getItemXML(weather, index);
+        return await _dioFctXML.getItemXML(weather, index);
       },
       getItemList: (weather) async {
-        return await _dioFct.getItemListXML(weather);
+        return await _dioFctXML.getItemListXML(weather);
       },
     );
   }
