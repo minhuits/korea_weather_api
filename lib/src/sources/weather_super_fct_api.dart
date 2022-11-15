@@ -3,9 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../adapter/adapter.dart';
-import '../models/enum/data_type.dart';
-import '../models/request/requests.dart';
-import 'client.dart';
+import '../models/models.dart';
+import 'weather_client.dart';
 
 class SuperFctAPI {
   late Dio _dio;
@@ -21,11 +20,12 @@ class SuperFctAPI {
   static const _getURL = '/getUltraSrtFcst';
 
   /// 초단기예보정보 Json Data
-  Future<Response> getJsonData(Weather weather) async {
+  Future getJsonData(Weather weather) async {
     late Response response;
 
     try {
       final nowDate = _date.getSuperFctDate(weather.date);
+
       response = await _dio.get(
         _getURL,
         queryParameters: weather.copyWith(dateTime: nowDate).toJson(),
@@ -39,11 +39,12 @@ class SuperFctAPI {
   }
 
   /// 초단기예보정보 XML Data
-  Future<Response> getXmlData(Weather weather) async {
+  Future getXmlData(Weather weather) async {
     late Response response;
 
     try {
       final nowDate = _date.getSuperFctDate(weather.date);
+
       response = await _dio.get(
         _getURL,
         queryParameters: weather

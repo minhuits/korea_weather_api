@@ -1,5 +1,5 @@
 //GENERATED BARREL FILE
-export 'fct_repository_imp.dart';
-export 'fct_version_repository_imp.dart';
-export 'super_fct_repository_imp.dart';
-export 'super_nct_repository_imp.dart';
+export 'imp_fct_repository.dart';
+export 'imp_fct_version_repository.dart';
+export 'imp_super_fct_repository.dart';
+export 'imp_super_nct_repository.dart';

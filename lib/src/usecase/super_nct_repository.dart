@@ -1,4 +1,4 @@
-import '../models/response/super_nct/super_nct_model.dart';
+import '../models/models.dart';
 import '../repository/repository.dart';
 
 abstract class SuperNctRepository

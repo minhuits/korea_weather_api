@@ -1,4 +1,4 @@
-import '../models/response/super_fct/super_fct_model.dart';
+import '../models/models.dart';
 import '../repository/repository.dart';
 
 abstract class SuperFctRepository

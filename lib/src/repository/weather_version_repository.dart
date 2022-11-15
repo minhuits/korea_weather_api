@@ -1,6 +1,6 @@
 import 'package:xml/xml.dart';
 
-import '../models/request/requests.dart';
+import '../models/models.dart';
 
 abstract class VersionRepository<T1, T2> {
   Future<T2> getJSON(WeatherVersion weatherVersion);

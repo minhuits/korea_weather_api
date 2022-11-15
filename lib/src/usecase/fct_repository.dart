@@ -1,4 +1,4 @@
-import '../models/response/fct/fct_model.dart';
+import '../models/models.dart';
 import '../repository/repository.dart';
 
 abstract class FctRepository with WeatherRepository<ItemFct, FctModel> {}

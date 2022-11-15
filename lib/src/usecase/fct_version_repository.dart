@@ -1,5 +1,11 @@
-import '../models/response/fct_version/fct_version_model.dart';
-import '../repository/repository.dart';
+import 'package:xml/xml.dart';
 
-abstract class FctVersionRepository
-    with VersionRepository<ItemFctVersion, FctVersionModel> {}
+import '../models/models.dart';
+
+abstract class FctVersionRepository {
+  Future<FctVersionModel> getJSON(WeatherVersion weatherVersion);
+  Future<ItemFctVersion> getItemXML(WeatherVersion version);
+  Future<ItemFctVersion> getItemJSON(WeatherVersion version);
+
+  ItemFctVersion toXml(XmlElement e);
+}

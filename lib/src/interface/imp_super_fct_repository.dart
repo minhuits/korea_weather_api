@@ -1,9 +1,8 @@
 import 'package:xml/xml.dart';
 
-import '../models/request/requests.dart';
-import '../models/response/responses.dart';
-import '../sources/super_fct_api.dart';
-import '../usecase/super_fct_repository.dart';
+import '../models/models.dart';
+import '../sources/sources.dart';
+import '../usecase/usecase.dart';
 
 class SuperFctRepositoryImp implements SuperFctRepository {
   late final SuperFctAPI _superFctAPI;
@@ -15,11 +14,11 @@ class SuperFctRepositoryImp implements SuperFctRepository {
   @override
   Future<SuperFctModel> getJSON(Weather weather) async {
     final data = await _superFctAPI.getJsonData(weather);
-    return SuperFctModel.fromJson(data.data);
+    return SuperFctModel.fromJson(data);
   }
 
   @override
-  Future<ItemSuperFct> getItemJSON(Weather weather, int index) async {
+  Future<ItemSuperFct> getItemJSON(Weather weather, [int index = 0]) async {
     final List<ItemSuperFct> itemList = [];
 
     final json = await getJSON(weather);
@@ -51,15 +50,15 @@ class SuperFctRepositoryImp implements SuperFctRepository {
   }
 
   @override
-  Future<ItemSuperFct> getItemXML(Weather weather, int index) async {
+  Future<ItemSuperFct> getItemXML(Weather weather, [int index = 0]) async {
     final List<ItemSuperFct> itemList = [];
 
     final xml = await _superFctAPI.getXmlData(weather);
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
+    final items = item.map<ItemSuperFct>(toXml).toList();
 
     if (item.isNotEmpty) {
-      final items = item.map<ItemSuperFct>(toXml).toList();
       items.map((e) => itemList.add(e)).toList();
       return itemList[index];
     } else {
@@ -73,7 +72,7 @@ class SuperFctRepositoryImp implements SuperFctRepository {
     final List<ItemSuperFct> itemList = [];
 
     final xml = await _superFctAPI.getXmlData(weather);
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
 
     if (item.isNotEmpty) {

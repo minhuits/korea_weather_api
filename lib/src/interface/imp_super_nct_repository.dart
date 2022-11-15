@@ -1,9 +1,8 @@
 import 'package:xml/xml.dart';
 
-import '../models/request/requests.dart';
-import '../models/response/responses.dart';
-import '../sources/aip_sources.dart';
-import '../usecase/super_nct_repository.dart';
+import '../models/models.dart';
+import '../sources/sources.dart';
+import '../usecase/usecase.dart';
 
 class SuperNctRepositoryImp implements SuperNctRepository {
   late final NctAPI _nctAPI;
@@ -15,7 +14,7 @@ class SuperNctRepositoryImp implements SuperNctRepository {
   @override
   Future<SuperNctModel> getJSON(Weather weather) async {
     final data = await _nctAPI.getJsonData(weather);
-    return SuperNctModel.fromJson(data.data);
+    return SuperNctModel.fromJson(data);
   }
 
   @override
@@ -55,11 +54,11 @@ class SuperNctRepositoryImp implements SuperNctRepository {
     final List<ItemSuperNct> itemList = [];
 
     final xml = await _nctAPI.getXmlData(weather);
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
+    final items = item.map<ItemSuperNct>(toXml).toList();
 
     if (item.isNotEmpty) {
-      final items = item.map<ItemSuperNct>(toXml).toList();
       items.map((e) => itemList.add(e)).toList();
       return itemList;
     } else {
@@ -73,13 +72,13 @@ class SuperNctRepositoryImp implements SuperNctRepository {
     final List<ItemSuperNct> itemList = [];
 
     final xml = await _nctAPI.getXmlData(weather);
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
+    final items = item.map<ItemSuperNct>(toXml).toList();
 
     if (item.isNotEmpty) {
-      final items = item.map<ItemSuperNct>(toXml).toList();
       items.map((e) => itemList.add(e)).toList();
-      return itemList[index];
+      return items[index];
     } else {
       itemList.add(const ItemSuperNct());
       return itemList.first;

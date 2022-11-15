@@ -1,5 +1,3 @@
-import '../models/request/requests.dart';
-
 class DateTimeAdapter {
   /// 새로운 new dateTime 생성
   DateTime nowDate({
@@ -16,53 +14,35 @@ class DateTimeAdapter {
     );
   }
 
-  /// 새로운 new Weather dateTime 생성
-  DateTime nowWeather({
-    int? day,
-    int? hour,
-    int? minute,
-    required Weather weather,
-  }) {
-    return DateTime(
-      weather.date.year,
-      weather.date.minute,
-      day ?? weather.date.day,
-      hour ?? weather.date.hour,
-      minute ?? weather.date.minute,
-    );
-  }
-
-  DateTime nowWeatherVer({
-    int? day,
-    int? hour,
-    int? minute,
-    required WeatherVersion version,
-  }) {
-    return DateTime(
-      version.date.year,
-      version.date.minute,
-      day ?? version.date.day,
-      hour ?? version.date.hour,
-      minute ?? version.date.minute,
-    );
-  }
-
-  /// 초단기 DateTime
+  /// 초단기 예보 DateTime
   DateTime getSuperFctDate(DateTime now) {
-    // 40분 이전이면 현재 시보다 1시간 전 `base_time`을 요청한다.
-    if (now.minute <= 40) {
+    // 45분 이전이면 현재 시보다 1시간 전 `base_time`을 요청한다.
+    if (now.minute <= 45) {
       if (now.hour == 0) {
-        // 단. 00시 이면 `base_date`는 전날이고 `base_time`은 2330이다.
+        // 단. 00:45이면 `base_date`는 전날이고 `base_time`은 23:30이다.
         return nowDate(day: now.day - 1, hour: 23, minute: 30);
       }
       return nowDate(hour: now.hour - 1, minute: 30);
     }
-
-    //40분 이후면 현재 시와 같은 `base_time`을 요청한다.
+    //45분 이후면 현재 시와 같은 `base_time`을 요청한다.
     return nowDate(minute: 30);
   }
 
-  /// 단기 DateTime
+  /// 초단기 실황 DateTime
+  DateTime getSuperNctDate(DateTime now) {
+    // 40분 이전이면 현재 시보다 1시간 전 `base_time`을 요청한다.
+    if (now.minute <= 40) {
+      if (now.hour == 0) {
+        // 단. 0시 40분 이면 `base_date`는 전날이고 `base_time`은 23:00이다.
+        return nowDate(day: now.day - 1, hour: 23, minute: 00);
+      }
+      return nowDate(hour: now.hour - 1, minute: 00);
+    }
+    //40분 이후면 현재 시와 같은 `base_time`을 요청한다.
+    return nowDate(minute: 00);
+  }
+
+  /// 단기 예보 DateTime
   DateTime getFctDate(DateTime now) {
     if (shortNowIs(now, 2)) {
       return nowDate(day: now.day - 1, hour: 23, minute: 00);

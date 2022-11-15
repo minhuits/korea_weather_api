@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../adapter/adapter.dart';
 import '../../adapter/adapter_map.dart';
 import '../enum/data_type.dart';
 
@@ -18,7 +19,7 @@ class Weather {
   /// 한 페이지 결과 수 [Default: 1000]
   final int numOfRows;
 
-  /// 요청자료형식(XML/JSON) [Default: XML]
+  /// 요청자료형식(XML/JSON) [Default: JSON]
   final DataType dataType;
 
   /// 발표일자 [자동생성]
@@ -64,9 +65,9 @@ class Weather {
     this.nx = changeMap.x;
     this.ny = changeMap.y;
 
-    baseDate = _dateBase(dateTime ?? DateTime.now());
-    baseTime = _timeBase(dateTime ?? DateTime.now());
     _dateTime = dateTime ?? DateTime.now();
+    baseDate = _dateBase(_dateTime);
+    baseTime = _timeBase(_dateTime);
   }
 
   DateTime get date => _dateTime;

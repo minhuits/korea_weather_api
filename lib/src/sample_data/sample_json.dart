@@ -1,4 +1,5 @@
-import '../../korea_weather_api.dart';
+import '../adapter/adapter.dart';
+import '../models/models.dart';
 
 class SampleJson {
   static late final String _serviceKey;

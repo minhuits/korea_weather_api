@@ -1,21 +1,21 @@
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:xml/xml.dart';
 
-import '../models/request/requests.dart';
-import '../models/response/fct/fct_model.dart';
-import '../sources/fct_api.dart';
-import '../usecase/fct_repository.dart';
+import '../models/models.dart';
+import '../sources/sources.dart';
+import '../usecase/usecase.dart';
 
 class FctRepositoryImp implements FctRepository {
   late final FctAPI _fctAPI;
 
-  FctRepositoryImp({bool? isLog}) {
-    _fctAPI = FctAPI(isLog: isLog);
+  FctRepositoryImp({bool? isLog, PrettyDioLogger? customLogger}) {
+    _fctAPI = FctAPI(isLog: isLog, customLogger: customLogger);
   }
 
   @override
   Future<FctModel> getJSON(Weather weather) async {
     final data = await _fctAPI.getJsonData(weather);
-    return FctModel.fromJson(data.data);
+    return FctModel.fromJson(data);
   }
 
   @override
@@ -36,11 +36,14 @@ class FctRepositoryImp implements FctRepository {
 
   @override
   Future<List<ItemFct>> getItemListJSON(Weather weather) async {
+    final List<ItemFct> itemList = [];
+
     final json = await getJSON(weather);
     final items = json.response!.body!.items!.item!;
 
     if (items.isNotEmpty) {
-      return items;
+      items.map((e) => itemList.add(e)).toList();
+      return itemList;
     } else {
       return Future.value([const ItemFct()]);
     }
@@ -52,7 +55,7 @@ class FctRepositoryImp implements FctRepository {
 
     final xml = await _fctAPI.getXmlData(weather);
 
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
 
     if (item.isNotEmpty) {
@@ -70,7 +73,7 @@ class FctRepositoryImp implements FctRepository {
     final List<ItemFct> itemFctList = [];
 
     final xml = await _fctAPI.getXmlData(weather);
-    final document = XmlDocument.parse(xml.data);
+    final document = XmlDocument.parse(xml);
     final item = document.findAllElements('item');
 
     if (item.isNotEmpty) {

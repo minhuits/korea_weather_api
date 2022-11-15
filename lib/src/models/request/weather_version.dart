@@ -8,27 +8,27 @@ part 'weather_version.g.dart';
 
 @JsonSerializable()
 class WeatherVersion {
-  /// 공공데이터포털에서 받은 인증키
+  /// 인증키
   @JsonKey(name: 'ServiceKey')
   final String serviceKey;
 
-  /// 페이지번호
+  /// 페이지번호 [Default: 1]
   final int pageNo;
 
-  /// 한 페이지 결과 수
+  /// 한 페이지 결과 수 [Default: 1]
   final int numOfRows;
 
-  /// 요청자료형식(XML/JSON) Default: XML
+  /// 요청자료형식(XML/JSON) [Default: JSON]
   final DataType dataType;
 
-  /// 파일구분
+  /// 파일구분 [Default: ODAM]
   /// -ODAM: 동네예보실황
   /// -VSRT: 동네예보초단기
   /// -SHRT: 동네예보단기
   @JsonKey(name: 'ftype')
   final FileType fileType;
 
-  /// 발표일시분
+  /// 발표일시분 [자동생성]
   @JsonKey(name: 'basedatetime')
   String? baseDateTime;
 
@@ -38,13 +38,13 @@ class WeatherVersion {
   WeatherVersion({
     DateTime? dateTime,
     required this.serviceKey,
-    required this.pageNo,
-    required this.numOfRows,
+    this.pageNo = 1,
+    this.numOfRows = 1,
     this.dataType = DataType.json,
     this.fileType = FileType.oDAM,
   }) {
-    baseDateTime = _dateTimeBase(dateTime ?? DateTime.now());
     _dateTime = dateTime ?? DateTime.now();
+    baseDateTime = _dateTimeBase(_dateTime);
   }
 
   DateTime get date => _dateTime;
@@ -63,7 +63,7 @@ class WeatherVersion {
       pageNo: pageNo ?? this.pageNo,
       dataType: dataType ?? this.dataType,
       fileType: fileType ?? this.fileType,
-      dateTime: dateTime ?? date,
+      dateTime: dateTime ?? _dateTime,
     );
   }
 
@@ -74,5 +74,5 @@ class WeatherVersion {
   Map<String, dynamic> toJson() => _$WeatherVersionToJson(this);
 
   String _dateTimeBase(DateTime dateTime) =>
-      DateFormat('yyyMMddkkmm').format(dateTime);
+      DateFormat('yyyyMMddkkmm').format(dateTime);
 }
