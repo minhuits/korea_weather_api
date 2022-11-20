@@ -1,11 +1,5 @@
-import 'package:xml/xml.dart';
-
 import '../models/models.dart';
+import '../repository/repository.dart';
 
-abstract class FctVersionRepository {
-  Future<FctVersionModel> getJSON(WeatherVersion weatherVersion);
-  Future<ItemFctVersion> getItemXML(WeatherVersion version);
-  Future<ItemFctVersion> getItemJSON(WeatherVersion version);
-
-  ItemFctVersion toXml(XmlElement e);
-}
+abstract class FctVersionRepository
+    with VersionRepository<ItemFctVersion, FctVersionModel> {}
