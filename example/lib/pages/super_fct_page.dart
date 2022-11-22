@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:korea_weather_api/korea_weather_api.dart';
 
 class SuperFctPage extends StatefulWidget {
-  const SuperFctPage({Key? key}) : super(key: key);
+  const SuperFctPage({
+    Key? key,
+    required this.apiKey,
+  }) : super(key: key);
+  final String apiKey;
 
   @override
   State<SuperFctPage> createState() => _SuperFctPageState();
@@ -14,11 +18,9 @@ class _SuperFctPageState extends State<SuperFctPage> {
   late Future<List<ItemSuperFct>> items3;
   late Future<List<ItemSuperFct>> items4;
 
-  final serviceKey = '';
-
   Future<List<ItemSuperFct>> getSuperFctListJson({isLog = false}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
     );
 
     final List<ItemSuperFct> items = [];
@@ -33,7 +35,7 @@ class _SuperFctPageState extends State<SuperFctPage> {
 
   Future<List<ItemSuperFct>> getSuperFctListXML({isLog = false}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
     );
     final List<ItemSuperFct> items = [];
 
@@ -49,7 +51,7 @@ class _SuperFctPageState extends State<SuperFctPage> {
     final List<ItemSuperFct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: index,
     );
@@ -67,7 +69,7 @@ class _SuperFctPageState extends State<SuperFctPage> {
     final List<ItemSuperFct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: index,
     );

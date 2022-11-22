@@ -9,8 +9,8 @@ part of 'weather_version.dart';
 WeatherVersion _$WeatherVersionFromJson(Map<String, dynamic> json) =>
     WeatherVersion(
       serviceKey: json['ServiceKey'] as String,
-      pageNo: json['pageNo'] as int,
-      numOfRows: json['numOfRows'] as int,
+      pageNo: json['pageNo'] as int? ?? 1,
+      numOfRows: json['numOfRows'] as int? ?? 1,
       dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['dataType']) ??
           DataType.json,
       fileType: $enumDecodeNullable(_$FileTypeEnumMap, json['ftype']) ??

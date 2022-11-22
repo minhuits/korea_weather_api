@@ -3,7 +3,11 @@ import 'package:korea_weather_api/korea_weather_api.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class FctVersionPage extends StatefulWidget {
-  const FctVersionPage({Key? key}) : super(key: key);
+  const FctVersionPage({
+    Key? key,
+    required this.apiKey,
+  }) : super(key: key);
+  final String apiKey;
 
   @override
   State<FctVersionPage> createState() => _FctVersionPageState();
@@ -20,13 +24,11 @@ class _FctVersionPageState extends State<FctVersionPage> {
     responseBody: true,
   );
 
-  final serviceKey = '';
-
   Future<List<ItemFctVersion>> getFctVersionJson({isLog = true}) async {
     final List<ItemFctVersion> items = [];
 
     final weather = WeatherVersion(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 100,
     );
@@ -42,7 +44,7 @@ class _FctVersionPageState extends State<FctVersionPage> {
     final List<ItemFctVersion> items = [];
 
     final weather = WeatherVersion(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 100,
     );

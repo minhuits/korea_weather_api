@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:korea_weather_api/korea_weather_api.dart';
 
 class FctPage extends StatefulWidget {
-  const FctPage({Key? key}) : super(key: key);
+  const FctPage({
+    Key? key,
+    required this.apiKey,
+  }) : super(key: key);
+  final String apiKey;
 
   @override
   State<FctPage> createState() => _FctPageState();
@@ -14,11 +18,9 @@ class _FctPageState extends State<FctPage> {
   late Future<List<ItemFct>> items3;
   late Future<List<ItemFct>> items4;
 
-  final serviceKey = '';
-
   Future<List<ItemFct>> getFctListJson({isLog = true}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 10,
     );
@@ -32,7 +34,7 @@ class _FctPageState extends State<FctPage> {
 
   Future<List<ItemFct>> getFctListXML({isLog = false}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 10,
     );
@@ -48,7 +50,7 @@ class _FctPageState extends State<FctPage> {
     final List<ItemFct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: index,
     );
@@ -66,7 +68,7 @@ class _FctPageState extends State<FctPage> {
     final List<ItemFct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: index,
     );

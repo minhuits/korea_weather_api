@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:korea_weather_api/korea_weather_api.dart';
 
 class SuperNctPage extends StatefulWidget {
-  const SuperNctPage({Key? key}) : super(key: key);
+  const SuperNctPage({Key? key, required this.apiKey}) : super(key: key);
+  final String apiKey;
 
   @override
   State<SuperNctPage> createState() => _SuperNctPageState();
@@ -14,11 +15,9 @@ class _SuperNctPageState extends State<SuperNctPage> {
   late Future<List<ItemSuperNct>> items3;
   late Future<List<ItemSuperNct>> items4;
 
-  final serviceKey = '';
-
-  Future<List<ItemSuperNct>> getItemFctListJson({isLog = false}) async {
+  Future<List<ItemSuperNct>> getSuperNctListJson({isLog = false}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 100,
     );
@@ -31,9 +30,9 @@ class _SuperNctPageState extends State<SuperNctPage> {
     return items;
   }
 
-  Future<List<ItemSuperNct>> getItemFctListXML({isLog = false}) async {
+  Future<List<ItemSuperNct>> getSuperNctListXML({isLog = false}) async {
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
       numOfRows: 100,
     );
@@ -47,13 +46,13 @@ class _SuperNctPageState extends State<SuperNctPage> {
     return items;
   }
 
-  Future<List<ItemSuperNct>> getItemFctJson(int index, {isLog = false}) async {
+  Future<List<ItemSuperNct>> getSuperNctJson(int index, {isLog = false}) async {
     final List<ItemSuperNct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
-      numOfRows: 100,
+      numOfRows: index,
     );
 
     for (int i = 0; i < index; i++) {
@@ -65,13 +64,13 @@ class _SuperNctPageState extends State<SuperNctPage> {
     return list;
   }
 
-  Future<List<ItemSuperNct>> getItemFctXML(int index, {isLog = false}) async {
+  Future<List<ItemSuperNct>> getSuperNctXML(int index, {isLog = false}) async {
     final List<ItemSuperNct> list = [];
 
     final weather = Weather(
-      serviceKey: serviceKey,
+      serviceKey: widget.apiKey,
       pageNo: 1,
-      numOfRows: 100,
+      numOfRows: index,
     );
 
     for (int i = 0; i < index; i++) {
@@ -87,10 +86,10 @@ class _SuperNctPageState extends State<SuperNctPage> {
   void initState() {
     super.initState();
 
-    items1 = getItemFctListJson();
-    items2 = getItemFctListXML();
-    items3 = getItemFctJson(5);
-    items4 = getItemFctXML(5);
+    items1 = getSuperNctListJson();
+    items2 = getSuperNctListXML();
+    items3 = getSuperNctJson(5);
+    items4 = getSuperNctXML(5);
   }
 
   @override

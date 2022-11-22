@@ -8,7 +8,7 @@ part 'weather_version.g.dart';
 
 @JsonSerializable()
 class WeatherVersion {
-  /// 인증키
+  /// 공공데이터포털에서 받은 인증키
   @JsonKey(name: 'ServiceKey')
   final String serviceKey;
 

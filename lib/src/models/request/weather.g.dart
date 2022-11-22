@@ -25,8 +25,8 @@ Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
       'dataType': _$DataTypeEnumMap[instance.dataType]!,
       'base_date': instance.baseDate,
       'base_time': instance.baseTime,
-      'ny': instance.ny,
       'nx': instance.nx,
+      'ny': instance.ny,
     };
 
 const _$DataTypeEnumMap = {

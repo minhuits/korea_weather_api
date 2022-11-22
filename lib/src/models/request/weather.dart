@@ -31,16 +31,13 @@ class Weather {
   String? baseTime;
 
   /// 예보지점 X 좌표 [Default: 60]
-  late int ny;
+  late int nx;
 
   /// 예보지점 Y 좌표 [Default: 127]
-  late int nx;
+  late int ny;
 
   @JsonKey(ignore: true)
   late DateTime _dateTime;
-
-  @JsonKey(ignore: true)
-  late MapAdapter changeMap;
 
   @JsonKey(ignore: true)
   late MapAdapter _changeMap;
@@ -49,21 +46,15 @@ class Weather {
     DateTime? dateTime,
     double? nx,
     double? ny,
-    double? newNx,
-    double? newNy,
-    bool isNew = false,
     required this.serviceKey,
     this.pageNo = 1,
     this.numOfRows = 1000,
     this.dataType = DataType.json,
   }) {
-    changeMap = MapAdapter.changeMap(newNx ?? 126.9800083, ny ?? 37.5635694);
-    final newChangeMap =
-        MapAdapter.changeMap(newNy ?? 126.9800083, ny ?? 37.5635694);
-    _changeMap = isNew ? newChangeMap : changeMap;
+    _changeMap = MapAdapter.changeMap(nx ?? 126.9800083, ny ?? 37.5635694);
 
-    this.nx = changeMap.x;
-    this.ny = changeMap.y;
+    this.nx = _changeMap.x;
+    this.ny = _changeMap.y;
 
     _dateTime = dateTime ?? DateTime.now();
     baseDate = _dateBase(_dateTime);
@@ -80,16 +71,13 @@ class Weather {
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
 
   Weather copyWith({
-    DateTime? dateTime,
-    bool isNew = false,
-    double? newNx,
-    double? newNy,
     String? serviceKey,
     int? pageNo,
     int? numOfRows,
     DataType? dataType,
-    String? baseDate,
-    String? baseTime,
+    DateTime? dateTime,
+    double? nx,
+    double? ny,
   }) {
     return Weather(
       serviceKey: serviceKey ?? this.serviceKey,
@@ -97,9 +85,8 @@ class Weather {
       numOfRows: numOfRows ?? this.numOfRows,
       dataType: dataType ?? this.dataType,
       dateTime: dateTime ?? _dateTime,
-      isNew: isNew,
-      newNx: newNx,
-      newNy: newNy,
+      nx: nx,
+      ny: ny,
     );
   }
 
