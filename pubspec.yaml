@@ -1,6 +1,6 @@
 name: korea_weather_api
 description: 한국 기상청 api
-version: 0.0.1
+version: 1.0.0
 repository: https://github.com/minhuits/korea_weather_api
 
 environment:
@@ -26,5 +26,3 @@ dev_dependencies:
   build_runner: ^2.3.2
   freezed: ^2.2.1
   json_serializable: ^6.5.4
-
-flutter:
