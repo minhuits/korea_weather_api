@@ -1,5 +1,5 @@
 name: korea_weather_api
-version: 1.0.2
+version: 1.0.3
 description: Meteorological Administration_Short-term Forecast ((formerly)_Neighborhood Forecast) This is a package developed to easily link with the inquiry service API.
 repository: https://github.com/minhuits/korea_weather_api
 
