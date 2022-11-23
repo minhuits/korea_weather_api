@@ -4,13 +4,14 @@ import 'package:xml/xml.dart';
 import '../../../adapter/adapter_xml.dart';
 
 part 'fct_version_model.freezed.dart';
+
 part 'fct_version_model.g.dart';
 
 @freezed
 class FctVersionModel with _$FctVersionModel {
   const factory FctVersionModel({
     /// 예보버전 조회
-    @JsonKey(name: 'response') ResponseFctVersion? response,
+    ResponseFctVersion? response,
   }) = _FctVersionModel;
 
   factory FctVersionModel.fromJson(Map<String, Object?> json) =>
@@ -20,8 +21,8 @@ class FctVersionModel with _$FctVersionModel {
 @freezed
 class ResponseFctVersion with _$ResponseFctVersion {
   const factory ResponseFctVersion({
-    @JsonKey(name: 'header') HeaderFctVersion? header,
-    @JsonKey(name: 'body') BodyFctVersion? body,
+    HeaderFctVersion? header,
+    BodyFctVersion? body,
   }) = _ResponseFctVersion;
 
   factory ResponseFctVersion.fromJson(Map<String, Object?> json) =>
@@ -31,11 +32,11 @@ class ResponseFctVersion with _$ResponseFctVersion {
 @freezed
 class BodyFctVersion with _$BodyFctVersion {
   const factory BodyFctVersion({
-    @JsonKey(name: 'dataType') String? dataType,
-    @JsonKey(name: 'items') ItemsFctVersion? items,
-    @JsonKey(name: 'pageNo') int? pageNo,
-    @JsonKey(name: 'numOfRows') int? numOfRows,
-    @JsonKey(name: 'totalCount') int? totalCount,
+    String? dataType,
+    ItemsFctVersion? items,
+    int? pageNo,
+    int? numOfRows,
+    int? totalCount,
   }) = _BodyFctVersion;
 
   factory BodyFctVersion.fromJson(Map<String, Object?> json) =>
@@ -45,7 +46,7 @@ class BodyFctVersion with _$BodyFctVersion {
 @freezed
 class ItemsFctVersion with _$ItemsFctVersion {
   const factory ItemsFctVersion({
-    @JsonKey(name: 'item') List<ItemFctVersion>? item,
+    List<ItemFctVersion>? item,
   }) = _ItemsFctVersion;
 
   factory ItemsFctVersion.fromJson(Map<String, Object?> json) =>
@@ -55,8 +56,8 @@ class ItemsFctVersion with _$ItemsFctVersion {
 @freezed
 class ItemFctVersion with _$ItemFctVersion {
   const factory ItemFctVersion({
-    @JsonKey(name: 'filetype') String? filetype,
-    @JsonKey(name: 'version') String? version,
+    String? filetype,
+    String? version,
   }) = _ItemFctVersion;
 
   factory ItemFctVersion.fromJson(Map<String, Object?> json) =>
@@ -73,8 +74,8 @@ class ItemFctVersion with _$ItemFctVersion {
 @freezed
 class HeaderFctVersion with _$HeaderFctVersion {
   const factory HeaderFctVersion({
-    @JsonKey(name: 'resultCode') String? resultCode,
-    @JsonKey(name: 'resultMsg') String? resultMsg,
+    String? resultCode,
+    String? resultMsg,
   }) = _HeaderFctVersion;
 
   factory HeaderFctVersion.fromJson(Map<String, Object?> json) =>

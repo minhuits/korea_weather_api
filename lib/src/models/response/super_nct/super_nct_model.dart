@@ -10,7 +10,7 @@ part 'super_nct_model.g.dart';
 class SuperNctModel with _$SuperNctModel {
   const factory SuperNctModel({
     /// 초단기 실황 조회
-    @JsonKey(name: 'response') ResponseBean? response,
+    ResponseBean? response,
   }) = _SuperNctModel;
 
   factory SuperNctModel.fromJson(Map<String, Object?> json) =>
@@ -20,8 +20,8 @@ class SuperNctModel with _$SuperNctModel {
 @freezed
 class ResponseBean with _$ResponseBean {
   const factory ResponseBean({
-    @JsonKey(name: 'header') HeaderSuperNct? header,
-    @JsonKey(name: 'body') BodySuperNct? body,
+    HeaderSuperNct? header,
+    BodySuperNct? body,
   }) = _ResponseBean;
 
   factory ResponseBean.fromJson(Map<String, Object?> json) =>
@@ -31,11 +31,11 @@ class ResponseBean with _$ResponseBean {
 @freezed
 class BodySuperNct with _$BodySuperNct {
   const factory BodySuperNct({
-    @JsonKey(name: 'dataType') String? dataType,
-    @JsonKey(name: 'items') ItemsSuperNct? items,
-    @JsonKey(name: 'pageNo') int? pageNo,
-    @JsonKey(name: 'numOfRows') int? numOfRows,
-    @JsonKey(name: 'totalCount') int? totalCount,
+    String? dataType,
+    ItemsSuperNct? items,
+    int? pageNo,
+    int? numOfRows,
+    int? totalCount,
   }) = _BodySuperNct;
 
   factory BodySuperNct.fromJson(Map<String, Object?> json) =>
@@ -45,7 +45,7 @@ class BodySuperNct with _$BodySuperNct {
 @freezed
 class ItemsSuperNct with _$ItemsSuperNct {
   const factory ItemsSuperNct({
-    @JsonKey(name: 'item') List<ItemSuperNct>? item,
+    List<ItemSuperNct>? item,
   }) = _ItemsSuperNct;
 
   factory ItemsSuperNct.fromJson(Map<String, Object?> json) =>
@@ -55,12 +55,12 @@ class ItemsSuperNct with _$ItemsSuperNct {
 @freezed
 class ItemSuperNct with _$ItemSuperNct {
   const factory ItemSuperNct({
-    @JsonKey(name: 'baseDate') String? baseDate,
-    @JsonKey(name: 'baseTime') String? baseTime,
-    @JsonKey(name: 'category') String? category,
-    @JsonKey(name: 'nx') int? nx,
-    @JsonKey(name: 'ny') int? ny,
-    @JsonKey(name: 'obsrValue') String? obsrValue,
+    String? baseDate,
+    String? baseTime,
+    String? category,
+    int? nx,
+    int? ny,
+    String? obsrValue,
   }) = _ItemSuperNct;
 
   factory ItemSuperNct.fromJson(Map<String, Object?> json) =>
@@ -81,8 +81,8 @@ class ItemSuperNct with _$ItemSuperNct {
 @freezed
 class HeaderSuperNct with _$HeaderSuperNct {
   const factory HeaderSuperNct({
-    @JsonKey(name: 'resultCode') String? resultCode,
-    @JsonKey(name: 'resultMsg') String? resultMsg,
+    String? resultCode,
+    String? resultMsg,
   }) = _HeaderSuperNct;
 
   factory HeaderSuperNct.fromJson(Map<String, Object?> json) =>
