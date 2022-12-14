@@ -1,6 +1,13 @@
+## 1.0.4
+
+* DateTimeAdapter Class Code Recycle
+* ChangeMapParameter Class  Code Recycle
+* MapAdapter Class  Code Recycle
+* LICENSE 문서 업데이트: 연도와 저작권 소유자의 이름 추가
+
 ## 1.0.3
 
-* 코드 리팩토링  : 불필요한 Json Key 제거
+* Request Models Code Recycle  : 불필요한 Json Key 제거
 
 ## 1.0.2
 
